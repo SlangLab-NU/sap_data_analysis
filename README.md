@@ -5,4 +5,5 @@ All scripts have a ```--working-dir``` command line argument. To run the scripts
 
 ```--working-dir "/scratch/<user>/```
 
+The processed/analyzed data is stored within VallE/egs/sap/...
 
