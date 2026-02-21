@@ -94,6 +94,21 @@ def get_speaker_metadata(speaker_dir):
     }
 
 
+def get_already_processed_speakers(output_path):
+    """Load already processed speakers from existing CSV."""
+    if not output_path.exists():
+        return set()
+    
+    try:
+        df = pd.read_csv(output_path)
+        processed = set(df['Speaker_ID'].tolist())
+        logger.info(f"Found {len(processed)} already processed speakers in {output_path}")
+        return processed
+    except Exception as e:
+        logger.warning(f"Could not read existing results: {e}")
+        return set()
+
+
 def calculate_speaker_wer(speaker_dir, asr_model, batch_size=16):
     """
     Calculate WER for a single speaker.
@@ -171,7 +186,8 @@ def calculate_speaker_wer(speaker_dir, asr_model, batch_size=16):
     }
 
 
-def process_dataset(sap_dir, dataset_type, asr_model, batch_size, max_speakers=None):
+def process_dataset(sap_dir, dataset_type, asr_model, logger, batch_size, log_every, 
+                    processed_speakers, max_speakers=None):
     """Process all speakers in a dataset (DEV or TRAIN)."""
     dataset_dir = sap_dir / dataset_type
     
@@ -181,24 +197,49 @@ def process_dataset(sap_dir, dataset_type, asr_model, batch_size, max_speakers=N
     
     speaker_dirs = [d for d in dataset_dir.iterdir() if d.is_dir()]
     
-    if max_speakers:
-        speaker_dirs = speaker_dirs[:max_speakers]
+    # Filter out already processed speakers
+    speaker_dirs_to_process = []
+    for speaker_dir in speaker_dirs:
+        metadata = get_speaker_metadata(speaker_dir)
+        if metadata and metadata['speaker_id'] not in processed_speakers:
+            speaker_dirs_to_process.append(speaker_dir)
     
-    logger.info(f"\nProcessing {len(speaker_dirs)} speakers from {dataset_type}")
+    logger.info(f"Total speakers in {dataset_type}: {len(speaker_dirs)}")
+    logger.info(f"Already processed: {len(speaker_dirs) - len(speaker_dirs_to_process)}")
+    logger.info(f"Remaining to process: {len(speaker_dirs_to_process)}")
+    
+    if max_speakers:
+        speaker_dirs_to_process = speaker_dirs_to_process[:max_speakers]
     
     results = []
     
-    for speaker_dir in tqdm(speaker_dirs, desc=f"Processing {dataset_type}"):
+    for speaker_dir in tqdm(speaker_dirs_to_process, desc=f"Processing {dataset_type}"):
         try:
-            result = calculate_speaker_wer(speaker_dir, asr_model, batch_size)
+            result = calculate_speaker_wer(speaker_dir, asr_model, logger, batch_size, log_every)
             if result:
                 result['Dataset'] = dataset_type
                 results.append(result)
+                
+                # INCREMENTAL SAVE - append to CSV after each speaker
+                append_result_to_csv(result, args.output)
+                
         except Exception as e:
             logger.error(f"Error processing {speaker_dir.name}: {e}")
             continue
     
     return results
+
+
+def append_result_to_csv(result, output_path):
+    """Append a single result to CSV (creates file if doesn't exist)."""
+    df_new = pd.DataFrame([result])
+    
+    if output_path.exists():
+        # Append to existing
+        df_new.to_csv(output_path, mode='a', header=False, index=False)
+    else:
+        # Create new with header
+        df_new.to_csv(output_path, mode='w', header=True, index=False)
 
 
 def save_results(results, output_path):
@@ -248,36 +289,50 @@ def save_results(results, output_path):
 
 
 def main():
+    global args
     args = get_args()
     
     logger.info("="*60)
     logger.info("SAP Speaker WER Calculation using NVIDIA NeMo")
     logger.info("="*60)
+    logger.info(f"Detailed logs: {args.log_file}")
+    
+    # Check for already processed speakers
+    processed_speakers = get_already_processed_speakers(args.output)
     
     # Construct full SAP directory path
     sap_dir = args.working_dir / args.sap_dir
     
     # Load NeMo ASR model
-    asr_model = load_nemo_model(args.model_name)
+    asr_model = load_nemo_model(args.model_name, logger)
     if not asr_model:
         return
     
-    # Process both datasets
+    # Process both datasets (incremental saves happen inside)
     all_results = []
     
     # Process DEV
-    dev_results = process_dataset(sap_dir, "DEV", asr_model, args.batch_size, args.max_speakers)
+    dev_results = process_dataset(sap_dir, "DEV", asr_model, logger, args.batch_size, 
+                                  args.log_every, processed_speakers, args.max_speakers)
     all_results.extend(dev_results)
     
     # Process TRAIN
-    train_results = process_dataset(sap_dir, "TRAIN", asr_model, args.batch_size, args.max_speakers)
+    train_results = process_dataset(sap_dir, "TRAIN", asr_model, logger, args.batch_size, 
+                                   args.log_every, processed_speakers, args.max_speakers)
     all_results.extend(train_results)
     
-    # Save results
-    save_results(all_results, args.output)
+    # Final save with sorting and statistics
+    # Re-read the full CSV (including previously processed speakers)
+    if args.output.exists():
+        final_df = pd.read_csv(args.output)
+        save_results(final_df.to_dict('records'), args.output, logger)
+    else:
+        save_results(all_results, args.output, logger)
     
     logger.info("\n" + "="*60)
     logger.info("Complete!")
+    logger.info(f"Results in: {args.output}")
+    logger.info(f"Detailed logs: {args.log_file}")
     logger.info("="*60)
 
 
