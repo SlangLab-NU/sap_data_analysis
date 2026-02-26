@@ -1,3 +1,0 @@
-Speaker_ID,Etiology,Num_Utterances,Average_WER,Dataset
-0011deac-27ce-4d61-a02e-08db2c0e5fe3,Parkinson's Disease,438,0.38312547649771445,TRAIN
-01570ac8-6f88-4424-3a69-08dc183f4f57,ALS,344,0.610798733886374,DEV
