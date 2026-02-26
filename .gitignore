@@ -1,2 +1,5 @@
 /prompts
 sap_analysis.sif
+sap_speaker_wer.csv
+sap_wer_detailed.log
+/audio*

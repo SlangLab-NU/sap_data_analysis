@@ -6,4 +6,6 @@ RUN pip install --no-cache-dir \
     jiwer \
     tqdm
 
+RUN pip install styletts2
+
 WORKDIR /workspace
