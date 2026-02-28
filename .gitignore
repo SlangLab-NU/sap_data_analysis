@@ -3,3 +3,5 @@ sap_analysis.sif
 sap_speaker_wer.csv
 sap_wer_detailed.log
 /audio*
+sap_analysis_styletts2.sif
+styletts2_synthesis/*
