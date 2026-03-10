@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MOS Evaluation — Slanglab</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #f4f4f5; color: #111; }
+    .container { max-width: 700px; margin: 60px auto; padding: 0 20px; }
+    h1 { font-size: 1.4rem; margin-bottom: 4px; }
+    .subtitle { color: #555; font-size: 0.9rem; margin-bottom: 32px; }
+
+    /* Login */
+    #login { background: #fff; border-radius: 10px; padding: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    #login h2 { margin-bottom: 16px; font-size: 1.1rem; }
+    #login input { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; margin-bottom: 12px; }
+    #login button { width: 100%; padding: 10px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; }
+    #login button:hover { background: #1d4ed8; }
+
+    /* Progress */
+    .progress-bar { background: #e5e7eb; border-radius: 99px; height: 6px; margin-bottom: 8px; }
+    .progress-fill { background: #2563eb; height: 6px; border-radius: 99px; transition: width 0.3s; }
+    .progress-label { font-size: 0.85rem; color: #555; margin-bottom: 24px; }
+
+    /* Sample card */
+    .card { background: #fff; border-radius: 10px; padding: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 20px; }
+    .card h3 { font-size: 0.95rem; color: #555; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .audio-block { margin-bottom: 24px; }
+    .audio-label { font-weight: 600; margin-bottom: 8px; font-size: 1rem; }
+    audio { width: 100%; margin-bottom: 12px; }
+    .rating-row { display: flex; gap: 8px; }
+    .rating-btn {
+      flex: 1; padding: 10px 0; border: 2px solid #e5e7eb;
+      border-radius: 6px; background: #fff; font-size: 1rem;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .rating-btn:hover { border-color: #2563eb; color: #2563eb; }
+    .rating-btn.selected { background: #2563eb; color: #fff; border-color: #2563eb; }
+    .rating-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: #888; margin-top: 4px; }
+
+    /* Submit */
+    #submit-btn {
+      width: 100%; padding: 12px; background: #16a34a; color: #fff;
+      border: none; border-radius: 6px; font-size: 1rem; cursor: pointer;
+      margin-top: 8px;
+    }
+    #submit-btn:disabled { background: #9ca3af; cursor: not-allowed; }
+    #submit-btn:not(:disabled):hover { background: #15803d; }
+
+    /* Done */
+    #done { display: none; text-align: center; padding: 48px 0; }
+    #done h2 { font-size: 1.4rem; margin-bottom: 8px; }
+    #done p { color: #555; }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Speech Quality Evaluation</h1>
+  <p class="subtitle">Slanglab — Northeastern University</p>
+
+  <!-- Login -->
+  <div id="login">
+    <h2>Enter your rater ID to begin</h2>
+    <input id="rater-input" type="text" placeholder="e.g. RATER_01" />
+    <button onclick="startSession()">Start Evaluation</button>
+  </div>
+
+  <!-- Evaluation -->
+  <div id="evaluation" class="hidden">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <p class="progress-label" id="progress-label"></p>
+
+    <div class="card">
+      <h3>Sample <span id="sample-num"></span></h3>
+
+      <div class="audio-block">
+        <div class="audio-label">Sample A</div>
+        <audio id="audio-a" controls></audio>
+        <div class="rating-row" id="rating-a"></div>
+        <div class="rating-labels"><span>Bad</span><span>Poor</span><span>Fair</span><span>Good</span><span>Excellent</span></div>
+      </div>
+
+      <div class="audio-block">
+        <div class="audio-label">Sample B</div>
+        <audio id="audio-b" controls></audio>
+        <div class="rating-row" id="rating-b"></div>
+        <div class="rating-labels"><span>Bad</span><span>Poor</span><span>Fair</span><span>Good</span><span>Excellent</span></div>
+      </div>
+
+      <button id="submit-btn" disabled onclick="submitCurrent()">Submit & Next →</button>
+    </div>
+  </div>
+
+  <!-- Done -->
+  <div id="done">
+    <h2>Thank you!</h2>
+    <p>Your responses have been recorded.</p>
+  </div>
+</div>
+
+<script>
+  let samples = [], current = 0, raterId = "";
+  let scoreA = null, scoreB = null;
+
+  async function startSession() {
+    raterId = document.getElementById("rater-input").value.trim();
+    if (!raterId) return alert("Please enter your rater ID.");
+    const res = await fetch("/api/samples");
+    samples = await res.json();
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("evaluation").classList.remove("hidden");
+    renderSample();
+  }
+
+  function renderSample() {
+    scoreA = null; scoreB = null;
+    document.getElementById("submit-btn").disabled = true;
+
+    const s = samples[current];
+    const total = samples.length;
+    const pct = (current / total) * 100;
+
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-label").textContent = `Sample ${current + 1} of ${total}`;
+    document.getElementById("sample-num").textContent = current + 1;
+
+    const aIsOriginal = s.a_is_original;
+    document.getElementById("audio-a").src = aIsOriginal ? s.original : s.synthetic;
+    document.getElementById("audio-b").src = aIsOriginal ? s.synthetic : s.original;
+
+    renderRatingRow("rating-a", "a");
+    renderRatingRow("rating-b", "b");
+  }
+
+  function renderRatingRow(containerId, which) {
+    const row = document.getElementById(containerId);
+    row.innerHTML = "";
+    for (let i = 1; i <= 5; i++) {
+      const btn = document.createElement("button");
+      btn.className = "rating-btn";
+      btn.textContent = i;
+      btn.onclick = () => selectScore(which, i);
+      row.appendChild(btn);
+    }
+  }
+
+  function selectScore(which, score) {
+    if (which === "a") scoreA = score;
+    else scoreB = score;
+
+    // Update button styles
+    const row = document.getElementById(`rating-${which}`);
+    row.querySelectorAll(".rating-btn").forEach((btn, i) => {
+      btn.classList.toggle("selected", i + 1 === score);
+    });
+
+    if (scoreA !== null && scoreB !== null) {
+      document.getElementById("submit-btn").disabled = false;
+    }
+  }
+
+  async function submitCurrent() {
+    const s = samples[current];
+    const aIsOriginal = s.a_is_original;
+
+    await fetch("/api/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        rater_id: raterId,
+        speaker_id: s.id,
+        original_score: aIsOriginal ? scoreA : scoreB,
+        synthetic_score: aIsOriginal ? scoreB : scoreA,
+        a_was_original: aIsOriginal,
+      })
+    });
+
+    current++;
+    if (current >= samples.length) {
+      document.getElementById("evaluation").classList.add("hidden");
+      document.getElementById("done").style.display = "block";
+    } else {
+      renderSample();
+    }
+  }
+</script>
+</body>
+</html>
