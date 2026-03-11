@@ -5,3 +5,5 @@ sap_wer_detailed.log
 /audio*
 sap_analysis_styletts2.sif
 **/styletts2_synthesis/
+styletts2_scripts/mos_evaluation/mos_eval.sif
+styletts2_scripts/mos_evaluation/samples.json

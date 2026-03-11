@@ -1,6 +1,6 @@
 import csv, json, os
 
-csv_path = "../speaker_similarity.csv"
+csv_path = "../styletts2_synthesis/speaker_similarity.csv"
 manifest = []
 
 with open(csv_path) as f:
