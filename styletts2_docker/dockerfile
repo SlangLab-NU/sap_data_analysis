@@ -19,7 +19,7 @@ RUN pip install --no-cache-dir "numpy<2.0,>=1.21.0"
 RUN pip install --no-cache-dir \
     torch==2.1.2 \
     torchaudio==2.1.2 \
-    --index-url https://download.pytorch.org/whl/cpu
+    --index-url https://download.pytorch.org/whl/cu121
 
 # Install transformers 4.x (compatible with torch 2.1.2)
 RUN pip install --no-cache-dir \
