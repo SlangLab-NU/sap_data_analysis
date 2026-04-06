@@ -1,0 +1,93 @@
+Speaker_ID,Etiology,Average_Rating,Number_of_Ratings,Number_Not_Rated,Total_Utterances
+01570ac8-6f88-4424-3a69-08dc183f4f57,ALS,N/A,0,344,344
+02005a84-8847-4ef7-7b99-08dc286c108f,Parkinson's Disease,N/A,0,448,448
+031e84ad-54f2-434b-abb3-08dc5d6a38e4,ALS,N/A,0,445,445
+0539d504-1dee-4c09-e989-08dc2e961576,Stroke,N/A,0,428,428
+08626c89-3dbd-4756-488d-08db66e486e4,Parkinson's Disease,1.82,28,421,449
+0a71bb2c-5579-468f-3729-08dc13d38337,ALS,1.53,15,165,180
+0f9ac13f-e103-4926-a1a8-08dc11dcc589,ALS,N/A,0,450,450
+108bae54-13c5-4f33-769b-08dc54a70eeb,Down Syndrome,N/A,0,428,428
+11a9ea43-641f-49d1-a1b5-08dc11dcc589,ALS,2.73,15,65,80
+15dec664-dc2b-4a05-4a54-08dc3c7b3134,Down Syndrome,N/A,0,82,82
+1628ada6-3321-4052-22b4-08dc56b55882,Down Syndrome,N/A,0,430,430
+17073b31-5882-4a6f-680c-08db4cce187f,Parkinson's Disease,2.09,35,415,450
+17412e2b-d84f-48b1-cf3d-08dc89b72177,ALS,N/A,0,444,444
+199e75a8-422f-473f-2b40-08db46c00613,Parkinson's Disease,2.06,40,408,448
+19afb5a2-41dc-42a1-1f5b-08db743c9986,Parkinson's Disease,1.5,33,416,449
+1a2c36f7-7312-4b00-da7d-08dc75b20572,Cerebral Palsy,2.51,19,402,421
+1d6104ff-7e74-4839-37c8-08dce6e2632a,Parkinson's Disease,N/A,0,338,338
+24e7fbed-4e86-452f-67f6-08dcbab8e251,Cerebral Palsy,N/A,0,417,417
+2685e5d9-b4f4-47d1-95f2-08dc379c1f1f,Parkinson's Disease,N/A,0,450,450
+26c12635-5dde-45d0-e7a8-08dcd9e31338,ALS,N/A,0,450,450
+284d7944-ac8e-47bb-1f66-08db3dcbbd09,Parkinson's Disease,1.68,40,410,450
+2866a69c-4e37-439c-60b9-08db37b72f34,Parkinson's Disease,1.99,29,421,450
+2d157949-e40e-4b8a-816b-08dc70f89134,Parkinson's Disease,N/A,0,440,440
+311638fc-a891-4ba8-7f97-08dc9f90df2f,Cerebral Palsy,N/A,0,430,430
+361d90cd-e838-451e-c58f-08dc27c1bd26,Parkinson's Disease,N/A,0,85,85
+36aa3164-db71-4ee3-b6b1-08dc8d7bb350,ALS,N/A,0,450,450
+3c1f5ec6-17d8-4d69-87a5-08dc74e08a4e,Cerebral Palsy,1.67,20,408,428
+3e9ab29f-daf0-4a3c-a181-08dc11dcc589,ALS,1.47,30,420,450
+45d88ea8-432d-49ba-95f8-08dc379c1f1f,Parkinson's Disease,1.48,29,416,445
+486642ad-4daa-48a0-fd62-08dcb5d1edd7,Cerebral Palsy,N/A,0,265,265
+4a9f71ab-f3a6-48a9-a1ba-08dcc7adb730,Down Syndrome,N/A,0,352,352
+4ede54a7-2133-4ef2-1161-08db2577509f,Parkinson's Disease,2.33,30,415,445
+51451a02-b769-42db-fd6d-08dcb5d1edd7,Cerebral Palsy,N/A,0,415,415
+54618732-a2cb-49ec-c034-08dc605e0191,Cerebral Palsy,N/A,0,430,430
+55c1784a-ece4-414a-25b4-08dc18e8f490,ALS,N/A,0,2,2
+56084d10-2aa7-4f02-304a-08dbf050033d,Down Syndrome,N/A,0,429,429
+5801631a-2f04-4d94-0b19-08dc228b8bf7,Cerebral Palsy,2.7,19,411,430
+5ac33366-70eb-43de-ce95-08dc58c09eb8,ALS,N/A,0,268,268
+5cce2e41-7adc-474d-1241-08dc8ec52b92,ALS,N/A,0,450,450
+5e4b7521-8a66-4c8b-7a25-08dc2a829031,Parkinson's Disease,N/A,0,447,447
+621afbb7-6745-452a-d57b-08dc71d79b4d,Parkinson's Disease,N/A,0,444,444
+63bc6f35-9437-44e5-1604-08dbb62a2382,Parkinson's Disease,1.71,30,419,449
+6532d81c-e8be-4910-1c46-08db344ca254,Parkinson's Disease,2.81,30,414,444
+659f50e6-6690-435a-5cee-08db46a76191,Parkinson's Disease,1.36,40,399,439
+6e34ea84-5d05-47f3-c599-08dc27c1bd26,Parkinson's Disease,N/A,0,449,449
+74613052-fd59-45c8-ab54-08db7376d336,Parkinson's Disease,2.53,40,407,447
+79dc1110-bef7-414c-24af-08dcbcb70931,Cerebral Palsy,N/A,0,429,429
+79f4b8bb-7ffa-4422-115c-08dba7fa5465,Parkinson's Disease,1.41,15,431,446
+7f1d37a6-dc22-4bb8-b2f1-08db6e8bdba4,Parkinson's Disease,1.19,25,425,450
+7fee5dfd-1c4d-44db-0e9c-08db39f45d00,Parkinson's Disease,2.05,30,419,449
+860cc717-c664-4d80-e9a2-08dc2e961576,Stroke,N/A,0,155,155
+866b68e7-78f2-4abb-e21e-08dc3963a250,Parkinson's Disease,N/A,0,418,418
+889c317c-39f2-4dcd-d5e5-08dc00f40ee5,Cerebral Palsy,2.59,24,350,374
+8926bff8-ec04-42ba-57e1-08dcbb9f64e1,Cerebral Palsy,1.63,20,381,401
+892b7b73-a330-4b1d-7f8e-08dc9f90df2f,Cerebral Palsy,3.06,10,419,429
+8b7f6b37-fd80-4318-a1b9-08dcc7adb730,Parkinson's Disease,N/A,0,444,444
+8e2d6856-1d18-46a5-b68b-08dc1130022a,Cerebral Palsy,1.83,20,410,430
+915db191-604c-4dad-9991-08dcab8095cf,ALS,1.92,29,409,438
+93bbf306-cb27-4be5-e7ff-08dbe60d97fb,Down Syndrome,1.83,20,409,429
+96ada12b-88af-44ce-0219-08dc41d581c9,Cerebral Palsy,1.83,20,408,428
+9d33c23d-5a77-45dc-c547-08dbb7ad5db3,Parkinson's Disease,1.76,30,420,450
+9e58a880-d0df-48a9-92b7-08dc971aa100,ALS,N/A,0,75,75
+9fa04401-2532-42e7-c578-08dc27c1bd26,Parkinson's Disease,1.83,29,419,448
+a14d22c1-10e8-4dcf-e962-08dc2e961576,Stroke,N/A,0,380,380
+a330c7be-433a-4eda-b953-08dc6eabb1a3,Down Syndrome,N/A,0,430,430
+aff2de06-efe1-4074-3e3f-08dc895255bb,Down Syndrome,N/A,0,119,119
+bad3f1b6-4896-4c71-adfa-08db93721f13,Parkinson's Disease,1.76,15,435,450
+bad794ff-c207-43b5-f3bc-08db49b9f20e,Parkinson's Disease,1.66,40,410,450
+bb82df4d-e1ed-409c-85da-08dbe07efb02,Parkinson's Disease,N/A,0,448,448
+c0075f18-fbb3-4509-14b2-08dcbf756c98,ALS,2.38,10,170,180
+cc29e135-2a7a-46e9-8f04-08dc7f6a721b,Cerebral Palsy,N/A,0,365,365
+cfdcd1d4-e2e4-49eb-b409-08db76ad1dc0,Parkinson's Disease,1.71,39,410,449
+d08febe1-2f4b-4080-2ed1-08dc27684872,Parkinson's Disease,N/A,0,450,450
+d1b9444a-2ed1-438e-fd68-08dcb5d1edd7,Parkinson's Disease,2.2,30,418,448
+d4e6f4e3-9b35-4c7e-669b-08db44e7c916,Parkinson's Disease,1.43,20,38,58
+d83c96a2-eeb0-416f-116d-08dc623ec532,ALS,1.68,30,420,450
+d9892453-ebb1-4d36-7ce0-08dc8ba4f236,Cerebral Palsy,N/A,0,427,427
+dd3b609c-ca04-47fb-dc90-08db7e3d374f,Parkinson's Disease,1.98,29,416,445
+df1bdab4-979a-451b-c2d9-08db6e0d6c39,Parkinson's Disease,1.79,20,412,432
+e28286b0-a156-459a-b2f2-08db6e8bdba4,Parkinson's Disease,1.83,40,410,450
+e6637ea3-8d88-40ca-8b32-08dc44f243ab,ALS,1.82,20,428,448
+e7bda08b-6296-4d01-a165-08dc11dcc589,ALS,2.29,30,420,450
+ea9825d9-3c46-49ed-b21d-08dc6a2b69be,ALS,N/A,0,440,440
+ecd22914-6704-4880-da3f-08db8211616b,Parkinson's Disease,2.31,40,407,447
+ee4627de-c026-4d38-e164-08dc4555b94c,ALS,N/A,0,98,98
+ee837067-1278-4fc3-3e6b-08dc863e36ec,Parkinson's Disease,N/A,0,450,450
+f0472e92-85eb-46f5-dcfe-08dc1694d265,Parkinson's Disease,N/A,0,122,122
+f7a16987-f872-4be8-df26-08dc12f39a63,ALS,N/A,0,450,450
+f84154b0-68f1-42ae-2e8e-08dc27684872,Parkinson's Disease,2.16,15,430,445
+f8e65210-0ac9-4c7c-c658-08db73ef9d1c,Parkinson's Disease,1.31,30,413,443
+fb9c683c-41a5-486c-ae6a-08dc945c48db,Cerebral Palsy,2.78,10,364,374
+fca65ce1-fabf-4914-172d-08db24d03de6,Parkinson's Disease,1.44,36,409,445
